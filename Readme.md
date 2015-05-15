@@ -2,7 +2,7 @@
 
 Use this module to convert strings to the equivalent Javascript expression that evaluate to the same strings.
 The generated expressions only use characters from the list [(){}\[\]+!]
-These syntatic characters are enough to create some words. The available characters are abcdefijlnorstuO<space>[]
+These syntatic characters are enough to create some words. The available characters are abcdefijlnorstuO` `[]
 
 # example
 
