@@ -13,13 +13,13 @@ module.exports = (function(){
   var slice = Array.prototype.slice
 
   // core concatenation character
-  ,   cat = "+"
+  ,   concat = "+"
 
-  //
+  // emoty string
   ,   empty = ""
   
   //  concats a list of strings joining them with "+" and adds parenthesis around it
-  ,   parenthesis = function(){return "(" + slice.call(arguments).join(cat) + ")"}
+  ,   parenthesis = function(){return "(" + slice.call(arguments).join(concat) + ")"}
   
   //  converts a number in a javascript valid expression that evaluates to the number
   ,   digit = function(d){
@@ -29,13 +29,13 @@ module.exports = (function(){
           return wrapper((''+d).split(empty).map(function(n,i){
               return wrapper( n > 0 ? 
                   // only add a trailing + if n is 1 
-                  (n>1? empty : "+") + 
+                  (n>1? empty : concat) + 
                   // join the expression that evaluated to 1, n times
                   new Array( +n + 1 ).join(1).split('')
-                    .map(function(){return'!+[]'}).join(cat)
+                    .map(function(){return'!+[]'}).join(concat)
                 : '+[]'
               ,i);
-            }).join(cat),1);
+            }).join(concat),1);
           }
 
   // translates an object in format { character : [baseKeyword, relevantIndex]}
@@ -102,7 +102,7 @@ module.exports = (function(){
         //h    :  (not available)
         i    : [wfalseundefined , 10    ],
         j    : [wobject         , 3     ],
-        //k    :   
+        //k    :  (not available)
         l    : [wfalse          , 2     ],
         //m    :  (not available) 
         n    : [wundefined      , 1     ],
@@ -123,6 +123,7 @@ module.exports = (function(){
         '['  : [wobject         , 0     ],
         ']'  : [wobject         , 14    ]
       })
+
   // translates a single character to its javascript string equivalent expression
   ,   singleChar = function(character){
       // Tries to tranlate regular character || lowercase || trows exception
@@ -135,6 +136,6 @@ module.exports = (function(){
   // converts a given string into a valid Javascript expression that evaluates to it
   return function(a){
     // split string by characters, converts them, and joins with concat operator
-    return a.split(empty).map(singleChar).join(cat);
+    return a.split(empty).map(singleChar).join(concat);
   }
 })();
