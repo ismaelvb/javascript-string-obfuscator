@@ -8,11 +8,12 @@ These syntatic characters are enough to create some words. The available charact
 
 You can use it directly after import to convert a string.
 
-obf = require("javascript-string-obfuscator");
 
-console.log(obf("obfuscator"));
+	obf = require("javascript-string-obfuscator");
 
-// ((\[\]+{})\[+!+\[\]\]+(\[\]+{})\[!+\[\]+!+\[\]\]+(\[\]+!\[\])[+\[\]]+(\[\]+\[\]\[\[\]\])\[+\[\]\]+(\[\]+!\[\])[!+\[\]+!+\[\]+!+\[\]\]+(\[\]+!\[\]+{})\[+!+\[\]+\[+\[\]\]\]+(\[\]+!\[\])\[+!+\[\]\]+(\[\]+!+!\[\])\[+\[\]\]+(\[\]+{})\[+!+\[\]\]+(\[\]+!+!\[\])\[+!+\[\]\])
+	console.log(obf("obfuscator"));
+
+	// (([]+{})[+!+[]]+([]+{})[!+[]+!+[]]+([]+![])[+[]]+([]+[][[]])[+[]]+([]+![])[!+[]+!+[]+!+[]]+([]+![]+{})[+!+[]+[+[]]]+([]+![])[+!+[]]+([]+!+![])[+[]]+([]+{})[+!+[]]+([]+!+![])[+!+[]])
 
 
 Licenced under MIT licence, free of charge.
