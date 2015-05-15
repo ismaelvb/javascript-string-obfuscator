@@ -1,0 +1,24 @@
+{
+  "name": "javascript-string-obfuscator",
+  "version": "0.0.1",
+  "description": "Javascript ",
+  "main": "obfuscator.js",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/ismaelvb/javascript-string-obfuscator.git"
+  },
+  "keywords": [
+    "string",
+    "obfuscator",
+    "commonjs",
+    "npm",
+    "javascript"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "author": {
+    "name": "Ismael Vilas Boas",
+    "email": "ismael.vb@gmail.com"
+  },
+  "license": "MIT"
+}
