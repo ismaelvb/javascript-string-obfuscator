@@ -11,8 +11,10 @@ You can use it directly after import to convert a string.
 obf = require("javascript-string-obfuscator");
 
 console.log(obf("obfuscator"));
+
 // ((\[\]+{})\[+!+\[\]\]+(\[\]+{})\[!+\[\]+!+\[\]\]+(\[\]+!\[\])[+\[\]]+(\[\]+\[\]\[\[\]\])\[+\[\]\]+(\[\]+!\[\])[!+\[\]+!+\[\]+!+\[\]\]+(\[\]+!\[\]+{})\[+!+\[\]+\[+\[\]\]\]+(\[\]+!\[\])\[+!+\[\]\]+(\[\]+!+!\[\])\[+\[\]\]+(\[\]+{})\[+!+\[\]\]+(\[\]+!+!\[\])\[+!+\[\]\])
 
 
 Licenced under MIT licence, free of charge.
+
 (c) 2015 - Ismael Vilas Boas
