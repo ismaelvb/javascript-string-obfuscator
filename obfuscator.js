@@ -22,11 +22,11 @@ module.exports = (function(){
   ,   parenthesis = function(){return "(" + slice.call(arguments).join(concat) + ")"}
   
   //  converts a number in a javascript valid expression that evaluates to the number
-  ,   digit = function(d){
+  ,   digit = function(digit){
           // wrap with digit concatenation only if the current digit is not the first (idx > 0)
           var wrapper = function(str, idx){return idx ? "[" + str + "]" : str};
           // separate by digits and merge the expression for each digit
-          return wrapper((''+d).split(empty).map(function(n,i){
+          return wrapper((''+digit).split(empty).map(function(n,i){
               return wrapper( n > 0 ? 
                   // only add a trailing + if n is 1 
                   (n>1? empty : concat) + 
@@ -37,6 +37,10 @@ module.exports = (function(){
               ,i);
             }).join(concat),1);
           }
+
+  ,   isDigit = function (digit){
+          return /\d/.test(digit);
+      }
 
   // translates an object in format { character : [baseKeyword, relevantIndex]}
   // into {character: <valid Javascript expression that evaluates to the character>}
@@ -127,7 +131,8 @@ module.exports = (function(){
   // translates a single character to its javascript string equivalent expression
   ,   singleChar = function(character){
       // Tries to tranlate regular character || lowercase || trows exception
-        return characterDictionary[character] 
+        return (isDigit(character) && (str + concat + digit(character)))
+          || characterDictionary[character] 
           || characterDictionary[character.toLowerCase()] 
           || (function(){throw("'" + character + "' is not translatable")})();
       }
