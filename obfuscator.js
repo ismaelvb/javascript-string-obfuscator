@@ -1,10 +1,11 @@
 // This module provides a regular mean to convert strings to
 // Javascript Expressions that evaluate on the same strings.
 // the expressions generated only use characters from the list 
-//      (){}[]+! 
+//      (){}[]~-+! 
 // in JS these syntatic characters are enough to create words.
-// the available characters are abcdefijlnorstuO<space>[].
-// licenced under MIT licence, free of charge.
+// the available characters are abcdefijlnorstuNO<space>[]-
+// inspired by http://stackoverflow.com/questions/7202157
+// licenced under MIT license, free of charge.
 // (c) 2015 - Ismael Vilas Boas
 
 module.exports = (function(){
@@ -26,21 +27,15 @@ module.exports = (function(){
           // wrap with digit concatenation only if the current digit is not the first (idx > 0)
           var wrapper = function(str, idx){return idx ? "[" + str + "]" : str};
           // separate by digits and merge the expression for each digit
-          return wrapper((''+digit).split(empty).map(function(n,i){
-              return wrapper( n > 0 ? 
-                  // only add a trailing + if n is 1 
-                  (n>1? empty : concat) + 
-                  // join the expression that evaluated to 1, n times
-                  new Array( +n + 1 ).join(1).split('')
-                    .map(function(){return'!+[]'}).join(concat)
-                : '+[]'
+          return wrapper((empty+digit).split(empty).map(function(n,i){
+              return wrapper( 
+                  // join the expression that increments, n times
+                  new Array( +n + 1 ).join(1).split(empty)
+                    .map(function(){return'-~'}).join(empty) +
+                (n > 0 ? empty : concat ) + "[]"
               ,i);
             }).join(concat),1);
           }
-
-  ,   isDigit = function (digit){
-          return /\d/.test(digit);
-      }
 
   // translates an object in format { character : [baseKeyword, relevantIndex]}
   // into {character: <valid Javascript expression that evaluates to the character>}
@@ -72,6 +67,12 @@ module.exports = (function(){
   // core undefined expression
   ,   cundefined = "[][[]]"
 
+  // core NaN expression
+  ,   cnan = "-" + cobject
+
+  // core minus 1
+  ,   cneg = "~" + str
+
   // word "false"
   ,   wfalse = stringWrapper(cfalse)
 
@@ -80,6 +81,12 @@ module.exports = (function(){
   
   // word "[object Object]"
   ,   wobject = stringWrapper(cobject)
+
+  // word "NaN"
+  ,   wnan = parenthesis(cnan + concat + str)
+
+  // word "-1"
+  ,   wneg = stringWrapper(cneg)
 
   // word "undefined"
   ,   wundefined = stringWrapper(cundefined)
@@ -122,16 +129,18 @@ module.exports = (function(){
         //x    :  (not available)
         //y    :  (not available) 
         //z    :  (not available)
+        N    : [wnan            , 0     ],
         O    : [wtrueobject     , 12    ],
         ' '  : [wtrueobject     , 11    ],
         '['  : [wobject         , 0     ],
-        ']'  : [wobject         , 14    ]
+        ']'  : [wobject         , 14    ],
+        '-'  : [wneg            , 0     ]
       })
 
   // translates a single character to its javascript string equivalent expression
   ,   singleChar = function(character){
       // Tries to tranlate regular character || lowercase || trows exception
-        return (isDigit(character) && (str + concat + digit(character)))
+        return /\d/.test(character) && digit(character)
           || characterDictionary[character] 
           || characterDictionary[character.toLowerCase()] 
           || (function(){throw("'" + character + "' is not translatable")})();
