@@ -5,7 +5,7 @@
   "main": "obfuscator.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/ismaelvb/javascript-string-obfuscator.git"
+    "url": "git+ssh://git@github.com/ismaelvb/javascript-string-obfuscator.git"
   },
   "keywords": [
     "string",
@@ -16,9 +16,13 @@
   ],
   "dependencies": {},
   "devDependencies": {},
-  "author": {
-    "name": "Ismael Vilas Boas",
-    "email": "ismael.vb@gmail.com"
+  "author": "Ismael Vilas Boas <ismael.vb@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ismaelvb/javascript-string-obfuscator/issues"
   },
-  "license": "MIT"
+  "homepage": "https://github.com/ismaelvb/javascript-string-obfuscator#readme",
+  "scripts": {
+    "test": "node index.js \"test\""
+  }
 }
