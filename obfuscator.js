@@ -27,11 +27,11 @@ module.exports = (function(){
           // wrap with digit concatenation only if the current digit is not the first (idx > 0)
           var wrapper = function(str, idx){return idx ? "[" + str + "]" : str};
           // separate by digits and merge the expression for each digit
-          return wrapper((empty+digit).split(empty).map(function(n,i){
+          return wrapper((empty + digit).split(empty).map(function(n,i){
               return wrapper( 
                   // join the expression that increments, n times
                   new Array( +n + 1 ).join(1).split(empty)
-                    .map(function(){return'-~'}).join(empty) +
+                    .map(function(){return '-~'}).join(empty) +
                 (n > 0 ? empty : concat ) + "[]"
               ,i);
             }).join(concat),1);
@@ -83,7 +83,7 @@ module.exports = (function(){
   ,   wobject = stringWrapper(cobject)
 
   // word "NaN"
-  ,   wnan = parenthesis(cnan + concat + str)
+  ,   wnan = stringWrapper(cnan,str)
 
   // word "-1"
   ,   wneg = stringWrapper(cneg)
@@ -139,17 +139,17 @@ module.exports = (function(){
 
   // translates a single character to its javascript string equivalent expression
   ,   singleChar = function(character){
-      // Tries to tranlate regular character || lowercase || trows exception
+      // Tries to translate: digit | regular character | lowercase | throw exception
         return /\d/.test(character) && digit(character)
           || characterDictionary[character] 
           || characterDictionary[character.toLowerCase()] 
-          || (function(){throw("'" + character + "' is not translatable")})();
+          || !function(){throw("'" + character + "' is not translatable")}()
       }
   ;   
 
   // converts a given string into a valid Javascript expression that evaluates to it
   return function(a){
-    // split string by characters, converts them, and joins with concat operator
+    // split string by characters, converts them and joins with concat operator
     return a.split(empty).map(singleChar).join(concat);
   }
 })();
